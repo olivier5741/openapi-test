@@ -1,1 +1,634 @@
-{"swagger":"2.0","info":{"title":"Mail.MicroService","version":"1.0"},"host":"localhost:5007","basePath":"/","schemes":["http"],"consumes":["application/json"],"produces":["application/json"],"paths":{"/mail/{Id}":{"get":{"tags":["mail"],"summary":"Send mail","description":"Send mail","operationId":"MailId_Get","consumes":["application/json"],"produces":["application/json"],"parameters":[{"name":"AppId","in":"query","description":"The referenced app","type":"string","required":false},{"name":"From","in":"query","schema":{"$ref":"#/definitions/MailParty"},"description":"The mail sender","required":false},{"name":"ReplyTo","in":"query","schema":{"$ref":"#/definitions/MailParty"},"description":"To whom mail answers should be sent","required":false},{"name":"Tos","in":"query","description":"The mail recepients : to,cc,bcc","type":"array","items":{"$ref":"#/definitions/MailParty"},"collectionFormat":"multi","required":false},{"name":"Content","in":"query","schema":{"$ref":"#/definitions/MailContent"},"description":"The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )","required":false},{"name":"Template","in":"query","schema":{"$ref":"#/definitions/MailTemplate"},"description":"The referenced template","required":false},{"name":"Campaign","in":"query","schema":{"$ref":"#/definitions/ChannelCampaign"},"description":"The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)","required":false},{"name":"Scenario","in":"query","schema":{"$ref":"#/definitions/ChannelScenario"},"description":"The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )","required":false},{"name":"Flow","in":"query","schema":{"$ref":"#/definitions/ChannelFlow"},"description":"The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)","required":false},{"name":"Tags","in":"query","description":"Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)","type":"array","items":{"type":"string"},"collectionFormat":"multi","required":false},{"name":"Schedule","in":"query","schema":{"$ref":"#/definitions/ChannelSchedule"},"description":"Schedule your mail in the future","required":false}],"responses":{"default":{"description":"","schema":{"$ref":"#/definitions/Object"}}},"deprecated":false,"security":[{"basic":[]},{"bearer":[]}]},"parameters":[{"$ref":"#/parameters/Accept"}]},"/mail":{"post":{"tags":["mail"],"summary":"Send mail","description":"Send mail","operationId":"Mail_Post","consumes":["application/x-www-form-urlencoded"],"produces":["application/json"],"parameters":[{"name":"AppId","in":"formData","description":"The referenced app","type":"string","required":false},{"name":"From","in":"formData","schema":{"$ref":"#/definitions/MailParty"},"description":"The mail sender","required":false},{"name":"ReplyTo","in":"formData","schema":{"$ref":"#/definitions/MailParty"},"description":"To whom mail answers should be sent","required":false},{"name":"Tos","in":"formData","description":"The mail recepients : to,cc,bcc","type":"array","items":{"$ref":"#/definitions/MailParty"},"collectionFormat":"multi","required":false},{"name":"Content","in":"formData","schema":{"$ref":"#/definitions/MailContent"},"description":"The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )","required":false},{"name":"Template","in":"formData","schema":{"$ref":"#/definitions/MailTemplate"},"description":"The referenced template","required":false},{"name":"Campaign","in":"formData","schema":{"$ref":"#/definitions/ChannelCampaign"},"description":"The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)","required":false},{"name":"Scenario","in":"formData","schema":{"$ref":"#/definitions/ChannelScenario"},"description":"The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )","required":false},{"name":"Flow","in":"formData","schema":{"$ref":"#/definitions/ChannelFlow"},"description":"The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)","required":false},{"name":"Tags","in":"formData","description":"Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)","type":"array","items":{"type":"string"},"collectionFormat":"multi","required":false},{"name":"Schedule","in":"formData","schema":{"$ref":"#/definitions/ChannelSchedule"},"description":"Schedule your mail in the future","required":false},{"name":"body","in":"body","schema":{"$ref":"#/definitions/Mail"}}],"responses":{"default":{"description":"","schema":{"$ref":"#/definitions/Object"}}},"deprecated":false,"security":[{"basic":[]},{"bearer":[]}]},"parameters":[{"$ref":"#/parameters/Accept"}]}},"definitions":{"Object":{"properties":{},"description":"Object","type":"object"},"Mail":{"title":"Mail","properties":{"Id":{"type":"string","x-nullable":false},"AppId":{"description":"The referenced app","type":"string","required":false},"AppKey":{"type":"string"},"TenantId":{"type":"integer","format":"int32","x-nullable":false},"Status":{"type":"string"},"From":{"$ref":"#/definitions/MailParty","description":"The mail sender","required":false},"ReplyTo":{"$ref":"#/definitions/MailParty","description":"To whom mail answers should be sent","required":false},"Tos":{"description":"The mail recepients : to,cc,bcc","type":"array","items":{"$ref":"#/definitions/MailParty"},"required":false},"Content":{"$ref":"#/definitions/MailContent","description":"The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )","required":false},"Template":{"$ref":"#/definitions/MailTemplate","description":"The referenced template","required":false},"Campaign":{"$ref":"#/definitions/ChannelCampaign","description":"The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)","required":false},"Scenario":{"$ref":"#/definitions/ChannelScenario","description":"The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )","required":false},"Flow":{"$ref":"#/definitions/ChannelFlow","description":"The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)","required":false},"Tags":{"description":"Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)","type":"array","items":{"type":"string"},"required":false},"Schedule":{"$ref":"#/definitions/ChannelSchedule","description":"Schedule your mail in the future","required":false},"Test":{"$ref":"#/definitions/ChannelTest"},"Events":{"type":"array","items":{"$ref":"#/definitions/MailEvent"}},"TestTrrc":{"$ref":"#/definitions/ChannelTestTrrc"},"RowVersion":{"type":"integer","format":"int64","x-nullable":false}},"description":"Send mail","type":"object"},"MailParty":{"title":"MailParty","properties":{"Type":{"description":"'To' [default], 'Cc', 'Bcc', 'From' or 'ReplyTo' ","type":"string","required":false},"Name":{"type":"string"},"Email":{"description":"Email address","type":"string"}},"description":"MailParty","type":"object"},"MailContent":{"title":"MailContent","properties":{"Subject":{"type":"string"},"Text":{"type":"string"},"Html":{"type":"string"},"Data":{"$ref":"#/definitions/Object"}},"description":"MailContent","type":"object"},"MailTemplate":{"title":"MailTemplate","properties":{"Id":{"type":"string"},"TextFileName":{"type":"string"},"HtmlFileName":{"type":"string"}},"description":"MailTemplate","type":"object"},"ChannelCampaign":{"title":"ChannelCampaign","properties":{"Id":{"type":"string"},"Key":{"type":"string"},"Name":{"type":"string"},"TimeRange":{"$ref":"#/definitions/TimeRange"},"Data":{"$ref":"#/definitions/Object"}},"description":"ChannelCampaign","type":"object"},"TimeRange":{"title":"TimeRange","properties":{"From":{"type":"string","format":"date-time"},"To":{"type":"string","format":"date-time"}},"description":"TimeRange","type":"object"},"ChannelScenario":{"title":"ChannelScenario","properties":{"Id":{"type":"string"},"Key":{"type":"string"},"Name":{"type":"string"},"Data":{"$ref":"#/definitions/Object"}},"description":"ChannelScenario","type":"object"},"ChannelFlow":{"title":"ChannelFlow","properties":{"Id":{"type":"string"},"Key":{"type":"string"},"Data":{"$ref":"#/definitions/Object"}},"description":"ChannelFlow","type":"object"},"ChannelSchedule":{"title":"ChannelSchedule","properties":{"Undefined":{"type":"boolean","x-nullable":false},"In":{"type":"string"},"At":{"type":"string","format":"date-time"}},"description":"ChannelSchedule","type":"object"},"ChannelTest":{"title":"ChannelTest","properties":{"CustomerIdOld":{"type":"integer","format":"int32"}},"description":"ChannelTest","type":"object"},"MailEvent":{"title":"MailEvent","properties":{"Id":{"type":"integer","format":"int64","x-nullable":false},"MailId":{"type":"string","x-nullable":false},"Time":{"type":"string","format":"date-time","x-nullable":false},"Name":{"type":"string"},"Email":{"type":"string"},"Reason":{"type":"string"},"Url":{"type":"string"}},"description":"MailEvent","type":"object"},"ChannelTestTrrc":{"title":"ChannelTestTrrc","properties":{},"description":"ChannelTestTrrc","type":"object"}},"parameters":{"Accept":{"name":"Accept","in":"header","description":"Accept Header","type":"string","required":true,"enum":["application/json"]}},"securityDefinitions":{"bearer":{"type":"apiKey","name":"Authorization","in":"header"}},"tags":[{"name":"mail"}]}
+{
+    "basePath": "/",
+    "consumes": [
+        "application/json"
+    ],
+    "definitions": {
+        "ChannelCampaign": {
+            "description": "ChannelCampaign",
+            "properties": {
+                "Data": {
+                    "$ref": "#/definitions/Object"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "Key": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "TimeRange": {
+                    "$ref": "#/definitions/TimeRange"
+                }
+            },
+            "title": "ChannelCampaign",
+            "type": "object"
+        },
+        "ChannelFlow": {
+            "description": "ChannelFlow",
+            "properties": {
+                "Data": {
+                    "$ref": "#/definitions/Object"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "Key": {
+                    "type": "string"
+                }
+            },
+            "title": "ChannelFlow",
+            "type": "object"
+        },
+        "ChannelScenario": {
+            "description": "ChannelScenario",
+            "properties": {
+                "Data": {
+                    "$ref": "#/definitions/Object"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "Key": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            },
+            "title": "ChannelScenario",
+            "type": "object"
+        },
+        "ChannelSchedule": {
+            "description": "ChannelSchedule",
+            "properties": {
+                "At": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "In": {
+                    "type": "string"
+                },
+                "Undefined": {
+                    "type": "boolean",
+                    "x-nullable": false
+                }
+            },
+            "title": "ChannelSchedule",
+            "type": "object"
+        },
+        "ChannelTest": {
+            "description": "ChannelTest",
+            "properties": {
+                "CustomerIdOld": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "title": "ChannelTest",
+            "type": "object"
+        },
+        "ChannelTestTrrc": {
+            "description": "ChannelTestTrrc",
+            "properties": {},
+            "title": "ChannelTestTrrc",
+            "type": "object"
+        },
+        "Mail": {
+            "description": "Send mail",
+            "properties": {
+                "AppId": {
+                    "description": "The referenced app",
+                    "required": false,
+                    "type": "string"
+                },
+                "AppKey": {
+                    "type": "string"
+                },
+                "Campaign": {
+                    "$ref": "#/definitions/ChannelCampaign",
+                    "description": "The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)",
+                    "required": false
+                },
+                "Content": {
+                    "$ref": "#/definitions/MailContent",
+                    "description": "The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )",
+                    "required": false
+                },
+                "Events": {
+                    "items": {
+                        "$ref": "#/definitions/MailEvent"
+                    },
+                    "type": "array"
+                },
+                "Flow": {
+                    "$ref": "#/definitions/ChannelFlow",
+                    "description": "The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)",
+                    "required": false
+                },
+                "From": {
+                    "$ref": "#/definitions/MailParty",
+                    "description": "The mail sender",
+                    "required": false
+                },
+                "Id": {
+                    "type": "string",
+                    "x-nullable": false
+                },
+                "ReplyTo": {
+                    "$ref": "#/definitions/MailParty",
+                    "description": "To whom mail answers should be sent",
+                    "required": false
+                },
+                "RowVersion": {
+                    "format": "int64",
+                    "type": "integer",
+                    "x-nullable": false
+                },
+                "Scenario": {
+                    "$ref": "#/definitions/ChannelScenario",
+                    "description": "The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )",
+                    "required": false
+                },
+                "Schedule": {
+                    "$ref": "#/definitions/ChannelSchedule",
+                    "description": "Schedule your mail in the future",
+                    "required": false
+                },
+                "Status": {
+                    "type": "string"
+                },
+                "Tags": {
+                    "description": "Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)",
+                    "items": {
+                        "type": "string"
+                    },
+                    "required": false,
+                    "type": "array"
+                },
+                "Template": {
+                    "$ref": "#/definitions/MailTemplate",
+                    "description": "The referenced template",
+                    "required": false
+                },
+                "TenantId": {
+                    "format": "int32",
+                    "type": "integer",
+                    "x-nullable": false
+                },
+                "Test": {
+                    "$ref": "#/definitions/ChannelTest"
+                },
+                "TestTrrc": {
+                    "$ref": "#/definitions/ChannelTestTrrc"
+                },
+                "Tos": {
+                    "description": "The mail recepients : to,cc,bcc",
+                    "items": {
+                        "$ref": "#/definitions/MailParty"
+                    },
+                    "required": false,
+                    "type": "array"
+                }
+            },
+            "title": "Mail",
+            "type": "object"
+        },
+        "MailContent": {
+            "description": "MailContent",
+            "properties": {
+                "Data": {
+                    "$ref": "#/definitions/Object"
+                },
+                "Html": {
+                    "type": "string"
+                },
+                "Subject": {
+                    "type": "string"
+                },
+                "Text": {
+                    "type": "string"
+                }
+            },
+            "title": "MailContent",
+            "type": "object"
+        },
+        "MailEvent": {
+            "description": "MailEvent",
+            "properties": {
+                "Email": {
+                    "type": "string"
+                },
+                "Id": {
+                    "format": "int64",
+                    "type": "integer",
+                    "x-nullable": false
+                },
+                "MailId": {
+                    "type": "string",
+                    "x-nullable": false
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Reason": {
+                    "type": "string"
+                },
+                "Time": {
+                    "format": "date-time",
+                    "type": "string",
+                    "x-nullable": false
+                },
+                "Url": {
+                    "type": "string"
+                }
+            },
+            "title": "MailEvent",
+            "type": "object"
+        },
+        "MailParty": {
+            "description": "MailParty",
+            "properties": {
+                "Email": {
+                    "description": "Email address",
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Type": {
+                    "description": "'To' [default], 'Cc', 'Bcc', 'From' or 'ReplyTo' ",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "title": "MailParty",
+            "type": "object"
+        },
+        "MailTemplate": {
+            "description": "MailTemplate",
+            "properties": {
+                "HtmlFileName": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "TextFileName": {
+                    "type": "string"
+                }
+            },
+            "title": "MailTemplate",
+            "type": "object"
+        },
+        "Object": {
+            "description": "Object",
+            "properties": {},
+            "type": "object"
+        },
+        "TimeRange": {
+            "description": "TimeRange",
+            "properties": {
+                "From": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "To": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "title": "TimeRange",
+            "type": "object"
+        }
+    },
+    "host": "localhost:5007",
+    "info": {
+        "title": "Mail.MicroService",
+        "version": "1.0"
+    },
+    "parameters": {
+        "Accept": {
+            "description": "Accept Header",
+            "enum": [
+                "application/json"
+            ],
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "type": "string"
+        }
+    },
+    "paths": {
+        "/mail": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/Accept"
+                }
+            ],
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "deprecated": false,
+                "description": "Send mail",
+                "operationId": "Mail_Post",
+                "parameters": [
+                    {
+                        "description": "The referenced app",
+                        "in": "formData",
+                        "name": "AppId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The mail sender",
+                        "in": "formData",
+                        "name": "From",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailParty"
+                        }
+                    },
+                    {
+                        "description": "To whom mail answers should be sent",
+                        "in": "formData",
+                        "name": "ReplyTo",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailParty"
+                        }
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "The mail recepients : to,cc,bcc",
+                        "in": "formData",
+                        "items": {
+                            "$ref": "#/definitions/MailParty"
+                        },
+                        "name": "Tos",
+                        "required": false,
+                        "type": "array"
+                    },
+                    {
+                        "description": "The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )",
+                        "in": "formData",
+                        "name": "Content",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailContent"
+                        }
+                    },
+                    {
+                        "description": "The referenced template",
+                        "in": "formData",
+                        "name": "Template",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailTemplate"
+                        }
+                    },
+                    {
+                        "description": "The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)",
+                        "in": "formData",
+                        "name": "Campaign",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelCampaign"
+                        }
+                    },
+                    {
+                        "description": "The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )",
+                        "in": "formData",
+                        "name": "Scenario",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelScenario"
+                        }
+                    },
+                    {
+                        "description": "The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)",
+                        "in": "formData",
+                        "name": "Flow",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelFlow"
+                        }
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)",
+                        "in": "formData",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "Tags",
+                        "required": false,
+                        "type": "array"
+                    },
+                    {
+                        "description": "Schedule your mail in the future",
+                        "in": "formData",
+                        "name": "Schedule",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelSchedule"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Mail"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Send mail",
+                "tags": [
+                    "mail"
+                ]
+            }
+        },
+        "/mail/{Id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "deprecated": false,
+                "description": "Send mail",
+                "operationId": "MailId_Get",
+                "parameters": [
+                    {
+                        "description": "The referenced app",
+                        "in": "query",
+                        "name": "AppId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The mail sender",
+                        "in": "query",
+                        "name": "From",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailParty"
+                        }
+                    },
+                    {
+                        "description": "To whom mail answers should be sent",
+                        "in": "query",
+                        "name": "ReplyTo",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailParty"
+                        }
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "The mail recepients : to,cc,bcc",
+                        "in": "query",
+                        "items": {
+                            "$ref": "#/definitions/MailParty"
+                        },
+                        "name": "Tos",
+                        "required": false,
+                        "type": "array"
+                    },
+                    {
+                        "description": "The mail content : subject, text and/or html. You can also use http file multipart ('subject', 'text', 'html )",
+                        "in": "query",
+                        "name": "Content",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailContent"
+                        }
+                    },
+                    {
+                        "description": "The referenced template",
+                        "in": "query",
+                        "name": "Template",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MailTemplate"
+                        }
+                    },
+                    {
+                        "description": "The campaign the mail should be referenced to. Set full info about the campaign. Useful for reporting purposes (ex: search all mail relative to *last accounting period invoices*)",
+                        "in": "query",
+                        "name": "Campaign",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelCampaign"
+                        }
+                    },
+                    {
+                        "description": "The scenario the mail should be referenced to. Set full info about the scenario Useful for reporting purposes (ex: compare number of mail send for *invoices* to *credit notes*  )",
+                        "in": "query",
+                        "name": "Scenario",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelScenario"
+                        }
+                    },
+                    {
+                        "description": "The flow the mail should be referenced to. Set full info about the flowUseful for transactional purposes (ex : set flow id as invoice id and know which mail(s) is associated to which invoice)",
+                        "in": "query",
+                        "name": "Flow",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelFlow"
+                        }
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "Campaign and scenario are not enough to categorize your business : Use tags to label your mail (ex: statistics about *private persons* and *companies*)",
+                        "in": "query",
+                        "items": {
+                            "type": "string"
+                        },
+                        "name": "Tags",
+                        "required": false,
+                        "type": "array"
+                    },
+                    {
+                        "description": "Schedule your mail in the future",
+                        "in": "query",
+                        "name": "Schedule",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ChannelSchedule"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Send mail",
+                "tags": [
+                    "mail"
+                ]
+            },
+            "parameters": [
+                {
+                    "$ref": "#/parameters/Accept"
+                }
+            ]
+        }
+    },
+    "produces": [
+        "application/json"
+    ],
+    "schemes": [
+        "http"
+    ],
+    "securityDefinitions": {
+        "bearer": {
+            "in": "header",
+            "name": "Authorization",
+            "type": "apiKey"
+        }
+    },
+    "swagger": "2.0",
+    "tags": [
+        {
+            "name": "mail"
+        }
+    ]
+}
